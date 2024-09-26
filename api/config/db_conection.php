@@ -2,7 +2,7 @@
 /*database conection
 developer: bryan
 */
-
+//faltta variables de entorno
 $hots = "localhost"; 
 $username = "postgres";
 $password = "unicesmag";
