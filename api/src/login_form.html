@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login form</title>
+    <title>Login form</title>  
 </head>
 <body>
-    
-   
-    <a href="http://127.0.0.1/beta/" target="_blank">Go to home</a>
+<center><img src="image/user_logo.png" width=50"></center>
+    <form name="login_form" action="backend/signup.php"method="post">
 
 
+    <table border="0" align="center">   
+        
+        <tr><td>Email:</td></tr>
+        <tr><td><input type="email" name="email"   placeholder="Hello@email.com" required></td></tr>
+        
+        <tr><td>Password:</td></tr>
+        <tr><td><input type="password" name="passwd"  placeholder="*********"title="please, you need a password" required></td></tr>       
+        
+         
+        <tr><td><button>login</button></td></tr>
+    </table>
+    </form>
+    <center><a href="http://127.0.0.1/beta/api/src/backend/forgot_pass.php" target="_blank">Forgot password?</a>
+           &nbsp; | &nbsp; <a href="http://127.0.0.1/beta/api/src/Register_form.html" target="_blank">sign up</a>
+        </center>
 </body>
 </html>
+

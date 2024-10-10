@@ -1,32 +1,40 @@
 <?php
 
-        //DB database connection
+require('../../config/db_conection.php');
 
-        require('../../config/db_conection.php');
-        //Get data from register form 
-        $email=$_POST['email'];
-        $pass=$_POST['passwd'];
-        $enc_pass=md5($pass);
+// Obtener datos del formulario de registro
+$email = $_POST['email'];
+$pass = $_POST['passwd'];
+$enc_pass = md5($pass);
 
-$enc_pass=md5($pass);
-
-$query = "INSERT INTO users (email, password) VALUES ($1, $2)";
-$result = pg_query_params($conn, $query, array($email, $enc_pass));
+// Verificar si la conexión está abierta y conectarse si no lo está
+$query = "SELECT * FROM users WHERE email = '$email'";
+$result = pg_query($conn, $query);
+$row=pg_fetch_assoc($result);
 
 if ($result) {
-        echo "User registered successfully";
-    } else {
-        echo "Failed to register user";
-    }
-    
-    // Cerrar la conexión
-    pg_close($conn);
+    echo "<script>alert('Email already exists!')</script>";
+    header('refresh:0; url=http://127.0.0.1/beta/api/src/register_form.html');
+    exit();
+} 
 
-     /*
-       echo "Email: " . $email;
-       echo "<br>Password: " . $pass;
-       echo "<br>Encrypted Password: " . $enc_pass;
-      */
+$query= "INSERT INTO users (email,password)
+VALUES ('$email', '$enc_pass')";
 
+$result = pg_query($conn, $query);
+
+if ($result) {
+    echo "<script>alert('Registration successful')</script>";
+    header('refresh:0; url=http://127.0.0.1/beta/api/src/login_form.html');
+} else {
+    echo "Failed to register user: ";
+} pg_close($conn);
+
+// Cerrar la conexión si está abierta
+/*
+echo "Email: " . $email;
+echo "<br>Password: " . $pass;
+echo "<br>Encrypted Password: " . $enc_pass;
+*/
 
 ?>
