@@ -18,14 +18,14 @@ if ($result) {
     exit();
 } 
 
-$query= "INSERT INTO users (email,password)
-VALUES ('$email', '$enc_pass')";
+$query = "INSERT INTO users (email, password) VALUES ('$email', '$enc_pass')";
 
 $result = pg_query($conn, $query);
 
 if ($result) {
     echo "<script>alert('Registration successful')</script>";
     header('refresh:0; url=http://127.0.0.1/beta/api/src/login_form.html');
+    exit();
 } else {
     echo "Failed to register user: ";
 } pg_close($conn);
