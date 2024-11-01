@@ -1,42 +1,41 @@
 <?php
 
+    function save_data_supabase($email, $password){
+        //supabase 
+        $SUPABASE_URL = 'https://eprfivfbtjombptxqxbt.supabase.co';
+        $SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwcmZpdmZidGpvbWJwdHhxeGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAzODg3MDgsImV4cCI6MjA0NTk2NDcwOH0.MBwSEKlpkhze15rfMXH80iwCJehOU3VwP2hJDOOI5L4';
+        
+        $url = "$SUPABASE_URL/rest/v1/users";
 
-function save_data_supabase($email, $password){
-    //supabase 
-    $SUPABASE_URL = 'https://eprfivfbtjombptxqxbt.supabase.co';
-    $SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwcmZpdmZidGpvbWJwdHhxeGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAzODg3MDgsImV4cCI6MjA0NTk2NDcwOH0.MBwSEKlpkhze15rfMXH80iwCJehOU3VwP2hJDOOI5L4';
-      
-    $url = "$SUPABASE_URL/rest/v1/users";
+        $data =[
+            'email' => $email,
+            'password' => $password,
+        ];
 
-    $data =[
-        'email' => $email,
-        'passwd' => $password,
-    ];
-
-    $options = [
-        'http' => [
-            'header'  => [
-                "Content-Type: application/json",
-                "Authorization: Bearer $SUPABASE_KEY",
-                "apikey: $SUPABASE_KEY"
+        $options = [
+            'http' => [
+                'header'  => [
+                    "Content-Type: application/json",
+                    "Authorization: Bearer $SUPABASE_KEY",
+                    "apikey: $SUPABASE_KEY"
+                ],
+                'method'  => 'POST',
+                'content' => json_encode($data),
             ],
-            'method'  => 'POST',
-            'content' => json_encode($data),
-        ],
-    ];
-    
-      
-    $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
-    //$response_data = json_decode($response, true);
+        ];
+        
+        
+        $context = stream_context_create($options);
+        $response = file_get_contents($url, false, $context);
+        //$response_data = json_decode($response, true);
 
-    if($response === false) {   
-        echo "Error: unable to save to Supabase";
-        exit;
-    } echo "user has been created." . json_encode($response_data);
+        if($response === false) {   
+            echo "Error: unable to save to Supabase";
+            exit;
+        } echo "user has been created.";// . json_encode($response_data);
 
 
-}
+    }
 
 require('../../config/db_conection.php');
 
